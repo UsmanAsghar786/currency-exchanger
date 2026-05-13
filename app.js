@@ -10,7 +10,7 @@ const msg = document.querySelector(".msg");
 for (let select of dropdowns) {
   for (currCode in countryList) {
     let newOption = document.createElement("option");
-    newOption.innerText = currCode;
+    newOption.innerText=`${currCode} (${countryNames[currCode] || currCode})`;
     newOption.value = currCode;
     if (select.name === "from" && currCode === "USD") {
       newOption.selected = "selected";
@@ -50,7 +50,7 @@ const updateExchangeRate = async () => {
   let data = await response.json();
   let rate = data[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()]; 
   
-  let finalAmount = amtVal * rate;
+  let finalAmount = (amtVal * rate).toFixed(2);
   msg.innerText = `${amtVal} ${fromCurr.value} = ${finalAmount} ${toCurr.value}`;
 };
 
